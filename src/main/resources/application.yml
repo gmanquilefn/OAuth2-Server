@@ -1,0 +1,18 @@
+server:
+    port: 9000
+
+spring:
+    application:
+        name: Auth-Server
+
+    datasource:
+        url: jdbc:postgresql://localhost:5432/authserver
+        username:
+        password:
+        driver-class-name: org.postgresql.Driver
+
+jwt:
+    key:
+        public: classpath:app.pub
+        private: classpath:app.key
+        id: auth-server
