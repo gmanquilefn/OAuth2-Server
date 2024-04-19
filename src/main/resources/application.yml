@@ -1,18 +1,22 @@
 server:
     port: 9000
 
+logging:
+    level:
+        ##org.springframework.jdbc.core: TRACE
+        org.springframework.security: TRACE
+
 spring:
     application:
         name: Auth-Server
 
     datasource:
         url: jdbc:postgresql://localhost:5432/authserver
-        username:
-        password:
+        username: postgres
+        password: postgres
         driver-class-name: org.postgresql.Driver
 
 jwt:
     key:
         public: classpath:app.pub
         private: classpath:app.key
-        id: auth-server
