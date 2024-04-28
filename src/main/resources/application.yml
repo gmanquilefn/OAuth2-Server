@@ -10,6 +10,13 @@ spring:
     application:
         name: Auth-Server
 
+
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    issuer-uri: http://127.0.0.1:9000
+
     datasource:
         url: jdbc:postgresql://localhost:5432/authserver
         username: postgres
