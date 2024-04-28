@@ -10,7 +10,6 @@ spring:
     application:
         name: Auth-Server
 
-
     security:
         oauth2:
             resourceserver:
@@ -28,3 +27,11 @@ jwt:
         public: classpath:app.pub
         private: classpath:app.key
         id: auth-server
+
+maintainer:
+    default-client:
+        create: true
+        client-id: default-client-id
+        client-secret: default-client-secret
+        scope: "api.consume"
+        access-token-time-to-live-in-sec: 3600

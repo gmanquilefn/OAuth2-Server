@@ -4,6 +4,9 @@ import cl.gfmn.authserver.exception.BadRequestException;
 import cl.gfmn.authserver.model.Response;
 import cl.gfmn.authserver.model.client.CreateClientRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
@@ -80,5 +83,32 @@ public class ClientService {
             }
         });
         return authorizationGrantTypesSet;
+    }
+
+    @Bean
+    ApplicationRunner defaultClientCreationRunner(RegisteredClientRepository registeredClientRepository,
+                                          @Value("${maintainer.default-client.create}") Boolean create,
+                                          @Value("${maintainer.default-client.client-id}") String defaultClientId,
+                                          @Value("${maintainer.default-client.client-secret}") String defaultClientSecret,
+                                          @Value("${maintainer.default-client.scope}") String defaultScope,
+                                          @Value("${maintainer.default-client.access-token-time-to-live-in-sec}") Integer accessTokenTimeToLive) {
+        return args -> {
+            if(create) {
+                RegisteredClient client = RegisteredClient
+                        .withId(UUID.randomUUID().toString())
+                        .clientId(defaultClientId)
+                        .clientSecret(passwordEncoder.encode(defaultClientSecret))
+                        .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                        .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                        .scope(defaultScope)
+                        .tokenSettings(TokenSettings.builder()
+                                .accessTokenTimeToLive(Duration.ofSeconds(accessTokenTimeToLive))
+                                .build())
+                        .build();
+
+                if(registeredClientRepository.findByClientId(client.getClientId()) == null)
+                    registeredClientRepository.save(client);
+            }
+        };
     }
 }
