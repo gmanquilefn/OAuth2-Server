@@ -2,7 +2,7 @@ package cl.gfmn.authserver.service;
 
 import cl.gfmn.authserver.exception.BadRequestException;
 import cl.gfmn.authserver.model.Response;
-import cl.gfmn.authserver.model.user.CreateClientRequest;
+import cl.gfmn.authserver.model.client.CreateClientRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;

@@ -1,4 +1,4 @@
-package cl.gfmn.authserver.model.user;
+package cl.gfmn.authserver.model.client;
 
 import java.util.List;
 

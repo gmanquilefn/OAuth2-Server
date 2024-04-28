@@ -32,7 +32,8 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers("/api/v1/**").authenticated())
+                .authorizeHttpRequests(permit -> permit.requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll())
+                .authorizeHttpRequests(authorize -> authorize.requestMatchers("/v1/api/**").authenticated())
                 .oauth2ResourceServer(resourceServer -> resourceServer.jwt(Customizer.withDefaults()))
                 .build();
     }
