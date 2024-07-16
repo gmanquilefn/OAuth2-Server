@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  oauth2server:
+    container_name: oauth2-auth-server
+    image: oauth2-auth-server:1.0.0
+    ports:
+      - "9000:9000"
+    environment:
+      - "JAVA_OPTS=-Xmx2048m -Duser.timezone=America/Santiago"
+      - "SPRING_PROFILE=-Dspring.profiles.active=dev"
+    restart: always
+    volumes:
+      - ${KEYS_PATH}:/keys
+      - ${LOG_PATH}:/log
+    logging:
+      options:
+        max-size: 10m
+        max-file: "10"

@@ -6,18 +6,50 @@ logging:
         ##org.springframework.jdbc.core: TRACE
         org.springframework.security: TRACE
 
+    file:
+        name: ./log/authserver.log
+
 spring:
     application:
         name: Auth-Server
 
     datasource:
+        driver-class-name: org.postgresql.Driver
+
+---
+
+spring:
+    config:
+        activate:
+            on-profile: local
+
+    datasource:
         url: jdbc:postgresql://localhost:5432/authserver
         username: postgres
         password: postgres
-        driver-class-name: org.postgresql.Driver
 
 jwt:
-    key:
+    key: #use this path to keys if you got the keys in src/main/resources (or other), need to be included in pom.xml
         public: classpath:app.pub
         private: classpath:app.key
-        id: auth-server
+        id: auth-server-local
+
+---
+
+spring:
+    config:
+        activate:
+            on-profile: dev
+
+    datasource: #host.docker.internal for container to container connection
+        url: jdbc:postgresql://172.17.0.1:5432/authserver
+        username: postgres
+        password: postgres
+
+jwt:
+    key: #RSA Keys from docker volume bind mount
+        public: file:/keys/app.pub
+        private: file:/keys/app.key
+        id: auth-server-dev
+
+---
