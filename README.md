@@ -51,7 +51,7 @@ The file route of the public and private keys of the auth server are configured 
 To generate the docker image we will need the .jar file of the project as specified in Dockerfile:
 
 ```dockerfile
-FROM eclipse-temurin:17.0.9_9-jre-alpine
+FROM eclipse-temurin:21.0.4_7-jre-alpine
 RUN mkdir keys/
 ADD target/oauth2-auth-server-1.0.0.jar oauth2-auth-server.jar
 EXPOSE 9000
