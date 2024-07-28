@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17.0.9_9-jre-alpine
+FROM eclipse-temurin:21.0.4_7-jre-alpine
 RUN mkdir keys/
 ADD target/oauth2-auth-server-1.0.0.jar oauth2-auth-server.jar
 EXPOSE 9000
