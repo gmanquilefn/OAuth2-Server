@@ -5,7 +5,7 @@
 
 This project implements the default configuration of Spring OAuth2 Authorization Server with:
 1. JDBC PostgreSQL configuration for persistence
-2. PostgreSQL database schema proved by Spring OAuth2 Authorization Server in documentation
+2. PostgreSQL database schema provided by Spring OAuth2 Authorization Server documentation
 3. RSA256 Public and Private keys loading from .pem files (X.509, PKCS8 respectively)
 
 
